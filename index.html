@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="styles.css">
+        <title>StudySupport - Home</title>
+    </head>
+
+    <body>
+        <!-- メインコンテンツ -->
+        <div class="main" id="main">
+            <!-- 最大化ボタン -->
+            <div id="div-button">
+                <input type="button" id="maximam_button" onclick="maximize()">
+            </div>
+
+            <!-- 最大化ボタンを消すためのボタン(透明) -->
+            <div id="div-hiding-button">
+                <input type="button" onclick="hidingMaxim()">
+            </div>
+
+            <div id="wdw-main">
+                <div id="wdw-num">
+                    <span id="hour__num"></span>
+                    <span id="min__num"></span>
+                    <span id="sec__num"></span>
+                </div>
+
+                <div id="wdw-char">
+                    <span id="hour__char">hour</span>
+                    <span id="min__char">minute</span>
+                    <span id="sec__char">second</span>
+                </div>
+                
+                <div id="wdw-inner-border"></div>
+            </div>
+        </div>
+
+        <script src="view.js"></script>
+        <script src="script.js"></script>
+    </body>
+</html>
