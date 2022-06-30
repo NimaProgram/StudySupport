@@ -169,10 +169,14 @@ const main = () => {
         result_seconds = sum_nt % 3600 % 60;
     }
 
-    if (sum_ft <= sum_nt < sum_rd){ // 自由時間
-        result_hours =  24 - ft[0] + rd[0] - ((sum_nt - sum_nt % 3600) / 3600 - ft[0]);
+    if (sum_ft <= sum_nt){ // 自由時間
+        result_hours =  24 - ft[0] + rd[0] - ((sum_nt - sum_nt % 3600) / 3600 - ft[0]) - 1;
         result_minutes = rd[1] - ft[1] - ((sum_nt - 3600 * (ft[0] + ((sum_nt - sum_nt % 3600) / 3600 - ft[0])) - sum_nt%3600%60) / 60 - ft[1]);
         result_seconds = sum_nt % 3600 % 60;
+    }else if (0 <= sum_nt < sum_rd){
+        result_hours = (rd[0] - nt[0])
+        result_minutes = (rd[1] - nt[1])
+        result_seconds = (nt[2])
     }
 
     // result_hours = (sum_nt - sum_nt % 3600) / 3600 - rd[0];
@@ -260,7 +264,7 @@ const main = () => {
 
 
 
-    hour_value.textContent = result_hours - 1;
+    hour_value.textContent = result_hours;
     min_value.textContent = result_minutes - 1;
     sec_value.textContent = 59 - result_seconds;
 }
