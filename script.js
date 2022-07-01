@@ -97,73 +97,77 @@ const main = () => {
     let result_minutes = 0
     let result_seconds = 0
 
-    if ( sum_rd <= sum_nt < sum_ls1){ // 朝読書
-        result_hours = (sum_nt - sum_nt % 3600) / 3600 - rd[0];
-        result_minutes = rtt[1] - ((sum_nt - 3600 * (rd[0] + result_hours) - sum_nt%3600%60) / 60 - rd[1]);
+    if (sum_rd <= sum_nt && sum_nt < sum_ls1){ // 朝読書
+        result_hours = nt[0] - rd[0];
+        result_minutes = rtt[1] - nt[1];
         result_seconds = sum_nt % 3600 % 60;
     }//ok
 
-    if (sum_ls1 <= sum_nt < sum_rest1){ // １校時
-        result_hours = (sum_nt - sum_nt % 3600) / 3600 - ls1[0];
+    if (sum_ls1 <= sum_nt && sum_nt < sum_rest1){ // １校時
+        result_hours = lst[0] - (nt[0] - ls1[0]);
         result_minutes = lst[1] - ((sum_nt - 3600 * (ls1[0] + result_hours) - sum_nt%3600%60) / 60 - ls1[1]);
         result_seconds = sum_nt % 3600 % 60;
     }//ok
 
-    if (sum_rest1 <= sum_nt < sum_ls2){ // 休憩１
-        result_hours = (sum_nt - sum_nt % 3600) / 3600 - rest1[0];
+    if (sum_rest1 <= sum_nt && sum_nt < sum_ls2){ // 休憩１
+        result_hours = lst[0] - (nt[0] - rest1[0]);
         result_minutes = rtt[1] - ((sum_nt - 3600 * (rest1[0] + result_hours) - sum_nt%3600%60) / 60 - rest1[1]);
         result_seconds = sum_nt % 3600 % 60;
     }//ok
 
-    if (sum_ls2 <= sum_nt < sum_rest2){ // ２校時
-        result_hours = (sum_nt - sum_nt % 3600) / 3600 - ls2[0];
+    if (sum_ls2 <= sum_nt && sum_nt < sum_rest2){ // ２校時
+        result_hours = lst[0] - (nt[0] - ls2[0]);
         result_minutes = lst[1] - ((sum_nt - 3600 * (ls2[0] + result_hours) - sum_nt%3600%60) / 60 - ls2[1]);
         result_seconds = sum_nt % 3600 % 60;
     }//ok
 
-    if (sum_rest2 <= sum_nt < sum_ls3){ // 休憩２
-        result_hours = (sum_nt - sum_nt % 3600) / 3600 - rest2[0];
+    if (sum_rest2 <= sum_nt && sum_nt < sum_ls3){ // 休憩２
+        result_hours = lst[0] - (nt[0] - rest2[0]);
         result_minutes = rtt[1] - ((sum_nt - 3600 * (rest2[0] + result_hours) - sum_nt%3600%60) / 60 - rest2[1]);
         result_seconds = sum_nt % 3600 % 60;
     }//ok
 
-    if (sum_ls3 <= sum_nt < sum_rest3){ // ３校時
-        result_hours = (sum_nt - sum_nt % 3600) / 3600 - ls3[0];
+    if (sum_ls3 <= sum_nt && sum_nt < sum_rest3){ // ３校時
+        result_hours = lst[0] - (nt[0] - ls3[0]);
         result_minutes = lst[1] - ((sum_nt - 3600 * (ls3[0] + result_hours) - sum_nt%3600%60) / 60 - ls3[1]);
         result_seconds = sum_nt % 3600 % 60;
     }
 
-    if (sum_rest3 <= sum_nt < sum_ls4){ // 休憩３
-        result_hours = (sum_nt - sum_nt % 3600) / 3600 - rest3[0];
+    if (sum_rest3 <= sum_nt && sum_nt < sum_ls4){ // 休憩３
+        result_hours = lst[0] - (nt[0] - rest3[0]);
         result_minutes = rtt[1] - ((sum_nt - 3600 * (rest3[0] + result_hours) - sum_nt%3600%60) / 60 - rest3[1]);
         result_seconds = sum_nt % 3600 % 60;
     }
 
-    if (sum_ls4 <= sum_nt < sum_lunch){ // ４校時
-        result_hours = (sum_nt - sum_nt % 3600) / 3600 - ls4[0];
+    if (sum_ls4 <= sum_nt && sum_nt < sum_lunch){ // ４校時
+        result_hours = lst[0] - (nt[0] - ls4[0]);
         result_minutes = lst[1] - ((sum_nt - 3600 * (ls4[0] + result_hours) - sum_nt%3600%60) / 60 - ls4[1]);
         result_seconds = sum_nt % 3600 % 60;
     }
 
-    if (sum_lunch <= sum_nt < sum_ls5){ // 昼食
-        result_hours = (sum_nt - sum_nt % 3600) / 3600 - ls4[0];
-        result_minutes = lct[1] - ((sum_nt - 3600 * (ls4[0] + result_hours) - sum_nt%3600%60) / 60 - ls4[1]);
+    if (sum_lunch <= sum_nt && sum_nt < sum_ls5){ // 昼食
+        result_hours = Math.floor((sum_nt - sum_lunch) / 3600);
+        if (nt[1] < lunch[1]) {
+            result_minutes = (lct[1] - ( 60 - lunch[1] )) - nt[1]; // 35
+        }else {
+            result_minutes = lct[1] - ( nt[1] - lunch[1] ); // 45 - ( 56 - 50 )
+        }
         result_seconds = sum_nt % 3600 % 60;
     }
 
-    if (sum_ls5 <= sum_nt < sum_rest5){ // ５校時
-        result_hours = (sum_nt - sum_nt % 3600) / 3600 - ls5[0];
+    if (sum_ls5 <= sum_nt && sum_nt < sum_rest5){ // ５校時
+        result_hours = lst[0] - (nt[0] - ls5[0]);
         result_minutes = lst[1] - ((sum_nt - 3600 * (ls5[0] + result_hours) - sum_nt%3600%60) / 60 - ls5[1]);
         result_seconds = sum_nt % 3600 % 60;
     }
 
-    if (sum_rest5 <= sum_nt < sum_ls6){ // 休憩５
+    if (sum_rest5 <= sum_nt && sum_nt < sum_ls6){ // 休憩５
         result_hours = (sum_nt - sum_nt % 3600) / 3600 - rest5[0];
         result_minutes = rtt[1] - ((sum_nt - 3600 * (rest5[0] + result_hours) - sum_nt%3600%60) / 60 - rest5[1]);
         result_seconds = sum_nt % 3600 % 60;
     }
 
-    if (sum_ls6 <= sum_nt < sum_ft){ // ６校時
+    if (sum_ls6 <= sum_nt && sum_nt < sum_ft){ // ６校時
         result_hours = (sum_nt - sum_nt % 3600) / 3600 - ls6[0];
         result_minutes = lst[1] - ((sum_nt - 3600 * (ls6[0] + result_hours) - sum_nt%3600%60) / 60 - ls6[1]);
         result_seconds = sum_nt % 3600 % 60;
@@ -173,7 +177,9 @@ const main = () => {
         result_hours =  24 - ft[0] + rd[0] - ((sum_nt - sum_nt % 3600) / 3600 - ft[0]) - 1;
         result_minutes = rd[1] - ft[1] - ((sum_nt - 3600 * (ft[0] + ((sum_nt - sum_nt % 3600) / 3600 - ft[0])) - sum_nt%3600%60) / 60 - ft[1]);
         result_seconds = sum_nt % 3600 % 60;
-    }else if (0 <= sum_nt < sum_rd){
+    }
+    
+    if (0 <= sum_nt && sum_nt < sum_rd){
         result_hours = (rd[0] - nt[0])
         result_minutes = (rd[1] - nt[1])
         result_seconds = (nt[2])
@@ -229,6 +235,7 @@ const main = () => {
     if (sum_ls4 <= sum_nt && sum_nt < sum_lunch && h == 0){
         bgc.style.background = "linear-gradient(40deg,#450b0b, #841723, #140303)";
         h ++;
+        console.log("lunch")
     }
 
     if (sum_lunch <= sum_nt && sum_nt < sum_ls5 && i == 0){
